@@ -62,6 +62,12 @@
                     audioContainer.appendChild(audio);
                     audioContainer.appendChild(audioName);
                     column.appendChild(audioContainer);
+                    // Add error handling to check if audio file loads correctly
+                    audio.addEventListener('error', () => {
+                        const errorText = document.createElement('p');
+                        errorText.textContent = `Error loading ${file}`;
+                        errorText.style.color = 'red';
+                        audioContainer.appendChild(errorText);
                 });
             });
         });

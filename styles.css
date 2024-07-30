@@ -72,12 +72,4 @@ audio + p {
     text-align: center;
     font-size: 0.85rem;
     color: #666;
-    word-wrap: break-word; /* This property ensures long words break to the next line */
-}
-
-footer {
-    text-align: center;
-    padding: 1rem 0;
-    background: #333;
-    color: #fff;
-}
+    word

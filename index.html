@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Voice Scorer</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <header>
+        <h1>Voice Scorer</h1>
+        <p>A webpage for hosting audio files to score and evaluate voice recordings.</p>
+    </header>
+    <main>
+        <section id="audio-files">
+            <h2>Audio Files</h2>
+            <div class="audio-columns">
+                <div class="audio-column" id="audio-source">
+                    <h3>Audio Source</h3>
+                </div>
+                <div class="audio-column" id="audio-target">
+                    <h3>Audio Target</h3>
+                </div>
+                <div class="audio-column" id="sota1">
+                    <h3>SOTA 1</h3>
+                </div>
+                <div class="audio-column" id="sota2">
+                    <h3>SOTA 2</h3>
+                </div>
+                <div class="audio-column" id="sota3">
+                    <h3>SOTA 3</h3>
+                </div>
+            </div>
+        </section>
+    </main>
+    <footer>
+        <p>&copy; 2024 Voice Scorer. All rights reserved.</p>
+    </footer>
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            const folders = ['audio_source', 'audio_target', 'sota1', 'sota2', 'sota3'];
+            const folderIds = ['audio-source', 'audio-target', 'sota1', 'sota2', 'sota3'];
+
+            folders.forEach((folder, index) => {
+                fetch(`${folder}/`)
+                    .then(response => response.text())
+                    .then(data => {
+                        const parser = new DOMParser();
+                        const htmlDoc = parser.parseFromString(data, 'text/html');
+                        const files = Array.from(htmlDoc.querySelectorAll('a'))
+                            .filter(link => link.href.match(/\.(mp3|wav)$/i))
+                            .map(link => link.href);
+                        
+                        const column = document.getElementById(folderIds[index]);
+                        files.forEach(file => {
+                            const audio = document.createElement('audio');
+                            audio.controls = true;
+                            const source = document.createElement('source');
+                            source.src = file;
+                            source.type = 'audio/mpeg';
+                            audio.appendChild(source);
+                            column.appendChild(audio);
+                        });
+                    })
+                    .catch(error => console.error('Error fetching audio files:', error));
+            });
+        });
+    </script>
+</body>
+</html>

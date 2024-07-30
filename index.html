@@ -64,7 +64,7 @@
         </section>
     </main>
     <footer> 
-       // <p>&copy; 2024 Voice Scorer. All rights reserved.</p>
+        <p>&copy; 2024 Voice Scorer. All rights reserved.</p>
     </footer> 
     <script>
         document.addEventListener("DOMContentLoaded", function() {
@@ -76,22 +76,23 @@
                 sota3: ["VCC2SF1_30001__VCC2SM4_30011.wav", "VCC2SF1_30001__VCC2SM4_30011.wav"] // List all files in sota3 folder
             };
 
-            Object.keys(audioFiles).forEach(folder => {
+           Object.keys(audioFiles).forEach(folder => {
                 const column = document.getElementById(folder);
                 audioFiles[folder].forEach(file => {
+                    const audioContainer = document.createElement('div');
                     const audio = document.createElement('audio');
                     audio.controls = true;
                     const source = document.createElement('source');
                     source.src = `audios/${folder}/${file}`;
                     source.type = 'audio/wav';
                     audio.appendChild(source);
-                    column.appendChild(audio);
                     const audioName = document.createElement('p');
                     audioName.textContent = file;
                     audioName.style.fontSize = 'small';
                     audioContainer.appendChild(audio);
                     audioContainer.appendChild(audioName);
                     column.appendChild(audioContainer);
+
                     // Add error handling to check if audio file loads correctly
                     audio.addEventListener('error', () => {
                         const errorText = document.createElement('p');

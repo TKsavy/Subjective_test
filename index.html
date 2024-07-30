@@ -79,6 +79,7 @@
            Object.keys(audioFiles).forEach(folder => {
                 const column = document.getElementById(folder);
                 audioFiles[folder].forEach(file => {
+                    const filePath = `audios/${folder}/${file}`;
                     const audioContainer = document.createElement('div');
                     const audio = document.createElement('audio');
                     audio.controls = true;

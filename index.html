@@ -99,17 +99,25 @@
                 sota3: ["VCC2SF1_30001__VCC2SM4_30011.wav", "VCC2SF1_30001__VCC2SM4_30011.wav"] // List all files in sota3 folder
             };
 
-            // Populate the index column
-            const indexColumn = document.getElementById('index');
+            // Get the maximum number of files
             const maxFiles = Math.max(...Object.values(audioFiles).map(files => files.length));
+
+            // Populate the rows with index and audio files
+            const audioRows = document.querySelector('.audio-rows');
             for (let i = 0; i < maxFiles; i++) {
-                const indexContainer = document.createElement('div');
+                const row = document.createElement('div');
+                row.className = 'audio-row';
+
+                // Add index
+                const indexColumn = document.createElement('div');
+                indexColumn.className = 'audio-column index-column';
                 const indexText = document.createElement('p');
                 indexText.textContent = (i + 1).toString();
                 indexText.style.textAlign = 'center';
-                indexContainer.appendChild(indexText);
-                indexColumn.appendChild(indexContainer);
-            }
+                indexColumn.appendChild(indexText);
+                row.appendChild(indexColumn);
+
+                // Add audio files
 
            Object.keys(audioFiles).forEach(folder => {
                 const column = document.getElementById(folder);

@@ -125,6 +125,7 @@
                         audioName.textContent = file;
                         audioName.style.fontSize = 'small';
                         audioName.style.width = '100%'; // Ensure the width matches the audio element
+                        audioName.className = 'audio-name'; // Added class for consistent width
                         audioContainer.appendChild(audio);
                         audioContainer.appendChild(audioName);
                         cell.appendChild(audioContainer);

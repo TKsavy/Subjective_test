@@ -82,9 +82,10 @@ audio + p {
     text-align: center;
     font-size: 0.85rem;
     color: #666;
-    word-wrap: break-word;
     width: 150px; /* Match the width of the audio player */
     white-space: normal; /* Allow wrapping */
+    word-wrap: break-word; /* Ensure the text wraps */
+    display: inline-block; /* Ensure the width is respected */
 }
 
 footer {

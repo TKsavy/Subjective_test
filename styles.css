@@ -71,25 +71,28 @@ td {
     vertical-align: top;
 }
 
-audio {
-    width: 150px; /* Set a smaller width for the audio player */
-    margin-bottom: 0.5rem;
-}
-
 .audio-container {
-    width: 150px; /* Ensure the width matches the audio element */
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 150px; /* Set a fixed width for the container */
     margin: 0 auto;
 }
 
-audio + p {
+audio {
+    width: 100%; /* Ensure the audio player matches the width of its container */
+    margin-bottom: 0.5rem;
+}
+
+.audio-container p {
     margin-top: 0;
     margin-bottom: 1rem;
     text-align: center;
     font-size: 0.85rem;
     color: #666;
     word-wrap: break-word; /* Ensure the text wraps */
-    white-space: normal;/* Allow wrapping */
-    width: 150px;
+    width: 100%; /* Ensure the width matches the audio element */
+    white-space: normal; /* Allow wrapping */
 }
 
 footer {

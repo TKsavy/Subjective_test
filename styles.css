@@ -61,6 +61,17 @@ section#instructions {
     min-width: 200px;
 }
 
+.index-column {
+    flex: 0 0 50px; /* Ensure the index column has a fixed width */
+    text-align: center;
+}
+
+.audio-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
 audio {
     width: 100%;
     margin-bottom: 0.5rem;

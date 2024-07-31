@@ -59,27 +59,22 @@
 
         </section>
         <section id="audio-files">
-            <h2>Audio Files</h2>
-            <div class="audio-columns">
-                <div class="audio-column" id="index">
-                    <h3>Index</h3>
-                </div>
-                <div class="audio-column" id="audio_source">
-                    <h3>Source</h3>
-                </div>
-                <div class="audio-column" id="audio_target">
-                    <h3>Reference</h3>
-                </div>
-                <div class="audio-column" id="sota1">
-                    <h3>Knn-VC</h3>
-                </div>
-                <div class="audio-column" id="sota2">
-                    <h3>FreeVC</h3>
-                </div>
-                <div class="audio-column" id="sota3">
-                    <h3>Proposed</h3>
-                </div>
-            </div>
+             <h2>Audio Files</h2>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Index</th>
+                        <th>Source</th>
+                        <th>Reference</th>
+                        <th>Knn-VC</th>
+                        <th>FreeVC</th>
+                        <th>Proposed</th>
+                    </tr>
+                </thead>
+                <tbody id="audio-tbody">
+                    <!-- Audio rows will be inserted here by JavaScript -->
+                </tbody>
+            </table>
         </section>
         <section id="thank-you">
             <h2>Thank You!</h2>
@@ -99,55 +94,58 @@
                 sota3: ["VCC2SF1_30001__VCC2SM4_30011.wav", "VCC2SF1_30001__VCC2SM4_30011.wav"] // List all files in sota3 folder
             };
 
-            // Get the maximum number of files
+             // Get the maximum number of files
             const maxFiles = Math.max(...Object.values(audioFiles).map(files => files.length));
 
-            // Populate the rows with index and audio files
-            const audioRows = document.querySelector('.audio-rows');
+            // Populate the table with index and audio files
+            const tbody = document.getElementById('audio-tbody');
             for (let i = 0; i < maxFiles; i++) {
-                const row = document.createElement('div');
-                row.className = 'audio-row';
+                const row = document.createElement('tr');
 
                 // Add index
-                const indexColumn = document.createElement('div');
-                indexColumn.className = 'audio-column index-column';
-                const indexText = document.createElement('p');
-                indexText.textContent = (i + 1).toString();
-                indexText.style.textAlign = 'center';
-                indexColumn.appendChild(indexText);
-                row.appendChild(indexColumn);
+                const indexCell = document.createElement('td');
+                indexCell.textContent = (i + 1).toString();
+                indexCell.style.textAlign = 'center';
+                row.appendChild(indexCell);
 
                 // Add audio files
+                Object.keys(audioFiles).forEach(folder => {
+                    const cell = document.createElement('td');
+                    const file = audioFiles[folder][i];
+                    if (file) {
+                        const filePath = `audios/${folder}/${file}`;
+                        const audioContainer = document.createElement('div');
+                        const audio = document.createElement('audio');
+                        audio.controls = true;
+                        const source = document.createElement('source');
+                        source.src = filePath;
+                        source.type = 'audio/wav';
+                        audio.appendChild(source);
+                        const audioName = document.createElement('p');
+                        audioName.textContent = file;
+                        audioName.style.fontSize = 'small';
+                        audioName.style.width = '100%'; // Ensure the width matches the audio element
+                        audioContainer.appendChild(audio);
+                        audioContainer.appendChild(audioName);
+                        cell.appendChild(audioContainer);
 
-           Object.keys(audioFiles).forEach(folder => {
-                const column = document.getElementById(folder);
-                audioFiles[folder].forEach(file => {
-                    const filePath = `audios/${folder}/${file}`;
-                    const audioContainer = document.createElement('div');
-                    const audio = document.createElement('audio');
-                    audio.controls = true;
-                    const source = document.createElement('source');
-                    source.src = `audios/${folder}/${file}`;
-                    source.type = 'audio/wav';
-                    audio.appendChild(source);
-                    const audioName = document.createElement('p');
-                    audioName.textContent = file;
-                    audioName.style.fontSize = 'small';
-                    audioContainer.appendChild(audio);
-                    audioContainer.appendChild(audioName);
-                    column.appendChild(audioContainer);
+                        // Add error handling to check if audio file loads correctly
+                        audio.addEventListener('error', () => {
+                            const errorText = document.createElement('p');
+                            errorText.textContent = `Error loading ${filePath}`;
+                            errorText.style.color = 'red';
+                            cell.appendChild(errorText);
+                        });
 
-                    // Add error handling to check if audio file loads correctly
-                    audio.addEventListener('error', () => {
-                        const errorText = document.createElement('p');
-                        errorText.textContent = `Error loading ${file}`;
-                        errorText.style.color = 'red';
-                        audioContainer.appendChild(errorText);
+                        // Debugging: Log the file path to the console
+                        console.log(`Loading file: ${filePath}`);
+                    }
+                    row.appendChild(cell);
                 });
-                    console.log(`Loading file: ${filePath}`);
-            });
+
+                tbody.appendChild(row);
+            }
         });
-    })
     </script>
 </body>
 </html>

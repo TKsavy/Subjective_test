@@ -68,7 +68,20 @@ th {
 
 td {
     text-align: center;
-    vertical-align: top;
+    vertical-align: middle;
+}
+
+tr {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.index-cell {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 100%;
 }
 
 .audio-container {

@@ -115,7 +115,9 @@
                     if (file) {
                         const filePath = `audios/${folder}/${file}`;
                         const audioContainer = document.createElement('div');
+                        audioContainer.className = 'audio-container'; 
                         const audio = document.createElement('audio');
+                        
                         audio.controls = true;
                         const source = document.createElement('source');
                         source.src = filePath;
